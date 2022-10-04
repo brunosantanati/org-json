@@ -37,4 +37,10 @@ fun main() {
 
     val response: JSONObject = jo.getJSONObject("data").get("response") as JSONObject
     println(response.toString())
+
+    val cityAny: Any = jo.get("city")
+    println(cityAny)
+    val cityString: String = jo.getString("city")
+    println(cityString)
+    //val itDoesNotExist: String = jo.getString("itDoesNotExist") //throws org.json.JSONException
 }

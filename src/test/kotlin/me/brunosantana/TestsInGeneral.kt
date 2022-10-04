@@ -3,7 +3,10 @@ package me.brunosantana
 import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
+import org.json.JSONException
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import kotlin.test.assertTrue
 
 class TestsInGeneral {
 
@@ -59,6 +62,25 @@ class TestsInGeneral {
         assertEquals("chicago", jo.get("city"))
         assertEquals("jon doe", jo.get("name"))
         assertEquals("22", jo.get("age"))
+    }
+
+    @Test
+    fun `should use getString to get a string value from JSONObject`() {
+        val jo = JSONObject("{\"city\":\"chicago\",\"name\":\"jon doe\",\"age\":\"22\"}")
+        assertEquals("chicago", jo.getString("city"))
+    }
+
+    @Test
+    fun `should throw an JSONException when the key does not exist`() {
+        val jo = JSONObject("{\"city\":\"chicago\",\"name\":\"jon doe\",\"age\":\"22\"}")
+
+        val ex: JSONException = assertThrows(JSONException::class.java) {
+            jo.getString("key-that-does-not-exist")
+        }
+
+        assertTrue(ex.message!!.startsWith("JSONObject"))
+        assertTrue(ex.message!!.endsWith("not found."))
+
     }
 
 }
