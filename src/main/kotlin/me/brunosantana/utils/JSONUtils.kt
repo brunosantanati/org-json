@@ -2,9 +2,6 @@ package me.brunosantana.utils
 
 import org.json.JSONObject
 
-//Varargs and Spread Operator in Kotlin
-//https://www.baeldung.com/kotlin/varargs-spread-operator
-
 fun getItemAnyLevelDeep(jsonObject: JSONObject, vararg levelNames: String): String {
 
     return if(levelNames.size == 1){
