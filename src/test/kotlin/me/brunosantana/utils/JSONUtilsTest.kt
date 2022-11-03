@@ -1,6 +1,5 @@
 package me.brunosantana.utils
 
-import me.brunosantana.enums.ReturnType
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.jupiter.api.Assertions
@@ -68,8 +67,8 @@ class JSONUtilsTest {
     }
 
     @Nested
-    @DisplayName("Test getItemAnyLevelDeep function")
-    inner class TestGetItemAnyLevelDeep {
+    @DisplayName("Test functions that call the recursive function")
+    inner class TestRecursiveFunctionality {
 
         @Test
         fun `should get an item 1 level deep`() {
@@ -193,6 +192,21 @@ class JSONUtilsTest {
             println("result: $result")
 
             Assertions.assertTrue(result.containsAll(listOf("São Paulo", "Bahia", "Minas Gerais", "Pernambuco")))
+        }
+
+        @Test
+        fun `should get Map String String 1 level deep for acronym and name`() {
+            val jsonObject = JSONObject(jsonString)
+            val result: Map<String, String> = jsonObject.getMapAnyLevelDeep(
+                jsonObject,
+                "states",
+                mapOf("key" to "acronym", "value" to "name"),
+                "Brazil"
+            )
+
+            println("result: $result")
+
+            Assertions.assertEquals("São Paulo", result["SP"])
         }
     }
 
