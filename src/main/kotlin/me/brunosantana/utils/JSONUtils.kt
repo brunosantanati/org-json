@@ -1,5 +1,6 @@
 package me.brunosantana.utils
 
+import me.brunosantana.enums.ReturnType
 import org.json.JSONObject
 
 fun JSONObject.getItem1LevelDeep(itemName: String, firstLevelName: String): String {
@@ -10,10 +11,19 @@ fun JSONObject.getItem2LevelsDeep(itemName: String, firstLevelName: String, seco
     return this.getJSONObject(firstLevelName).getJSONObject(secondLevelName).getString(itemName)
 }
 
-fun JSONObject.getItemAnyLevelDeep(jsonObject: JSONObject, itemName: String, vararg levelNames: String): String {
+fun JSONObject.getItemAnyLevelDeep(
+    jsonObject: JSONObject,
+    itemName: String,
+    returnType: ReturnType,
+    vararg levelNames: String
+): Any {
 
     return if(levelNames.isEmpty()){
-        jsonObject.getString(itemName)
+        when(returnType) {
+            ReturnType.STRING -> jsonObject.getString(itemName)
+            ReturnType.JSON_ARRAY -> jsonObject.getJSONArray(itemName)
+            else -> "Invalid return type"
+        }
     }else{
         val levelName = levelNames[0]
         val nextJsonObject = jsonObject.getJSONObject(levelName)
@@ -25,6 +35,6 @@ fun JSONObject.getItemAnyLevelDeep(jsonObject: JSONObject, itemName: String, var
             }
         }
 
-        getItemAnyLevelDeep(nextJsonObject, itemName, *updatedLevelNames)
+        getItemAnyLevelDeep(nextJsonObject, itemName, returnType, *updatedLevelNames)
     }
 }

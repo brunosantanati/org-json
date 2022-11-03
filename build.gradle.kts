@@ -16,6 +16,7 @@ dependencies {
     implementation("org.json:json:20220924")
     testImplementation(kotlin("test"))
     testImplementation("net.javacrumbs.json-unit:json-unit-assertj:2.35.0")
+    testImplementation("org.skyscreamer:jsonassert:1.5.1")
 }
 
 tasks.test {
