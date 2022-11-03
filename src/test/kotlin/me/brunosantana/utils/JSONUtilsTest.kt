@@ -24,36 +24,8 @@ class JSONUtilsTest {
                      "}"
 
     @Nested
-    @DisplayName("Testing first implementation of getItemAnyLevelDeep")
-    inner class TestingFirstImplementation {
-        @Test
-        fun `should get an item 1 level deep`() {
-            val jsonObject = JSONObject(jsonString)
-            val result = getItemAnyLevelDeep(jsonObject, "data", "book")
-            println("result: $result")
-            Assertions.assertEquals("A vida de David Brainerd", result)
-        }
-
-        @Test
-        fun `should get an item 2 levels deep`() {
-            val jsonObject = JSONObject(jsonString)
-            val result = getItemAnyLevelDeep(jsonObject, "data", "response", "id")
-            println("result: $result")
-            Assertions.assertEquals("10", result)
-        }
-
-        @Test
-        fun `should get an item 3 levels deep`() {
-            val jsonObject = JSONObject(jsonString)
-            val result = getItemAnyLevelDeep(jsonObject, "data", "response", "content", "message")
-            println("result: $result")
-            Assertions.assertEquals("my message", result)
-        }
-    }
-
-    @Nested
-    @DisplayName("Testing second implementation of getItemAnyLevelDeep")
-    inner class TestingSecondImplementation {
+    @DisplayName("Test getItemAnyLevelDeep function")
+    inner class TestGetItemAnyLevelDeep {
 
         @Test
         fun `should get an item 1 level deep`() {
