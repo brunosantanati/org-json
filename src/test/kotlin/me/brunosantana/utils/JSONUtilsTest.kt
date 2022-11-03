@@ -17,7 +17,13 @@ class JSONUtilsTest {
                             "\"response\": {" +
                                 "\"id\": \"10\"," +
                                 "\"content\": {" +
-                                    "\"message\": \"my message\"" +
+                                    "\"message\": \"my message\"," +
+                                    "\"family\": {" +
+                                        "\"father\": \"John\"," +
+                                        "\"children\": {" +
+                                            "\"first\": \"Elizabeth\"" +
+                                        "}" +
+                                    "}" +
                                 "}" +
                             "}" +
                         "}" +
@@ -49,6 +55,24 @@ class JSONUtilsTest {
             val result = jsonObject.getItemAnyLevelDeep(jsonObject, "data", "response", "content", "message")
             println("result: $result")
             Assertions.assertEquals("my message", result)
+        }
+
+        @Test
+        fun `should get an item 4 levels deep`() {
+            val jsonObject = JSONObject(jsonString)
+            val result =
+                jsonObject.getItemAnyLevelDeep(jsonObject, "data", "response", "content", "family", "father")
+            println("result: $result")
+            Assertions.assertEquals("John", result)
+        }
+
+        @Test
+        fun `should get an item 5 levels deep`() {
+            val jsonObject = JSONObject(jsonString)
+            val result =
+                jsonObject.getItemAnyLevelDeep(jsonObject, "data", "response", "content", "family", "children", "first")
+            println("result: $result")
+            Assertions.assertEquals("Elizabeth", result)
         }
     }
 
