@@ -166,7 +166,7 @@ class JSONUtilsTest {
         }
 
         @Test
-        fun `should get String List 1 level deep`() {
+        fun `should get String List 1 level deep for acronym`() {
             val jsonObject = JSONObject(jsonString)
             val result: List<String> = jsonObject.getListAnyLevelDeep(
                 jsonObject,
@@ -178,6 +178,21 @@ class JSONUtilsTest {
             println("result: $result")
 
             Assertions.assertTrue(result.containsAll(listOf("SP", "BA", "MG", "PE")))
+        }
+
+        @Test
+        fun `should get String List 1 level deep for name`() {
+            val jsonObject = JSONObject(jsonString)
+            val result: List<String> = jsonObject.getListAnyLevelDeep(
+                jsonObject,
+                "states",
+                "name",
+                "Brazil"
+            )
+
+            println("result: $result")
+
+            Assertions.assertTrue(result.containsAll(listOf("São Paulo", "Bahia", "Minas Gerais", "Pernambuco")))
         }
     }
 
