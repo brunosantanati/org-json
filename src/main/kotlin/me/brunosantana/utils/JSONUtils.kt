@@ -2,18 +2,18 @@ package me.brunosantana.utils
 
 import org.json.JSONObject
 
-fun JSONObject.getItem1LevelDeep(firstLevelName: String, itemName: String): String {
+fun JSONObject.getItem1LevelDeep(itemName: String, firstLevelName: String): String {
     return this.getJSONObject(firstLevelName).getString(itemName)
 }
 
-fun JSONObject.getItem2LevelsDeep(firstLevelName: String, secondLevelName: String, itemName: String): String {
+fun JSONObject.getItem2LevelsDeep(itemName: String, firstLevelName: String, secondLevelName: String): String {
     return this.getJSONObject(firstLevelName).getJSONObject(secondLevelName).getString(itemName)
 }
 
-fun JSONObject.getItemAnyLevelDeep(jsonObject: JSONObject, vararg levelNames: String): String {
+fun JSONObject.getItemAnyLevelDeep(jsonObject: JSONObject, itemName: String, vararg levelNames: String): String {
 
-    return if(levelNames.size == 1){
-        jsonObject.getString(levelNames[0])
+    return if(levelNames.isEmpty()){
+        jsonObject.getString(itemName)
     }else{
         val levelName = levelNames[0]
         val nextJsonObject = jsonObject.getJSONObject(levelName)
@@ -25,6 +25,6 @@ fun JSONObject.getItemAnyLevelDeep(jsonObject: JSONObject, vararg levelNames: St
             }
         }
 
-        getItemAnyLevelDeep(nextJsonObject, *updatedLevelNames)
+        getItemAnyLevelDeep(nextJsonObject, itemName, *updatedLevelNames)
     }
 }
